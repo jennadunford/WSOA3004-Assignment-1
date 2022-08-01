@@ -7,10 +7,14 @@ public class IsoMoveCtrl : MonoBehaviour
 {
     [SerializeField] protected Grid grid;
     private Rigidbody2D rb;
-    [SerializeField] private float speed;
+    [SerializeField] private float moveSpeed, xBaseSpeed, yBaseSpeed, normalizedSpeed;
+    [SerializeField] bool moveX = true, moveY = true, normalizeFinalMove;
+
+
+    [SerializeField] private string xAxis = "Horizontal", yAxis = "Vertical";
 
     public Vector3 IsoX { get; private set; }
-    public Vector3 IsoZ { get; private set; }
+    public Vector3 IsoY { get; private set; }
     
 
     public Vector3Int GridPos { get; protected set; }
@@ -24,10 +28,7 @@ public class IsoMoveCtrl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-
-        transform.position += speed * Time.deltaTime * (Input.GetAxis("Vertical") * IsoZ + Input.GetAxis("Horizontal") * IsoX);
-
+        Move();
     }
 
     // Setup methods
@@ -35,16 +36,40 @@ public class IsoMoveCtrl : MonoBehaviour
     {
         Vector3 orign = grid.CellToWorld(new Vector3Int(0, 0, 0));
         Vector3 xRef = grid.CellToWorld(new Vector3Int(1, 0, 0));
-        Vector3 zRef = grid.CellToWorld(new Vector3Int(0, 1, 0));
+        Vector3 yRef = grid.CellToWorld(new Vector3Int(0, 1, 0));
 
         IsoX = (xRef - orign).normalized;
-        IsoZ = (zRef - orign).normalized;
+        IsoY = (yRef - orign).normalized;
     }
 
     // Control methods
-    private void Move() // called in fixed ud
+    private void Move()
     {
+        Vector3 velocity = GetXMove() + GetYMove();
+        if (normalizeFinalMove)
+        {
+            velocity = normalizedSpeed * velocity.normalized;
+        }
+        rb.velocity = velocity;
+    }
 
+    private Vector3 GetXMove()
+    {
+        float input = 0f;
+        if (moveX)
+        {
+            input = Input.GetAxis(xAxis) * moveSpeed;
+        }
+        return (input + xBaseSpeed) * IsoX;
+    }
+    private Vector3 GetYMove()
+    {
+        float input = 0f;
+        if (moveY)
+        {
+            input = Input.GetAxis(yAxis) * moveSpeed;
+        }
+        return (input + yBaseSpeed) * IsoY;
     }
 
 }
