@@ -34,14 +34,14 @@ public class eightDirectionMovement : MonoBehaviour
     {
         direction = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")).normalized;
 
-       // playerBody.velocity = direction * walkSpeed;
+        // playerBody.velocity = direction * walkSpeed;
 
         //flip();
 
         //setSprite();
-        setSpriteIso();
+        // setSpriteIso();
 
-
+        rotateForMovement();
 
 
 
@@ -170,5 +170,82 @@ public class eightDirectionMovement : MonoBehaviour
         }
       
 
+    }
+
+    void rotateForMovement()
+    {
+        Vector3 rotation;
+       
+        if (direction.y > 0) //up
+        {
+            if ((direction.x) > 0) //right or left
+            {
+                rotation = new Vector3(0, 0, 90);
+                //Debug.Log("straight up");
+               // transform.Rotate(rotation* Time.deltaTime);
+                playerSprites.transform.rotation = Quaternion.Euler(rotation);
+
+
+            }
+            else if ((direction.x) < 0)
+            {
+                //Debug.Log("straight left");
+                rotation = new Vector3(0, 0, 180);
+               // transform.Rotate(rotation * Time.deltaTime);
+                playerSprites.transform.rotation = Quaternion.Euler(rotation);
+            }
+            else
+            {
+                //Debug.Log("up left");
+                rotation = new Vector3(0, 0, 135);
+                //transform.Rotate(rotation * Time.deltaTime);
+                playerSprites.transform.rotation = Quaternion.Euler(rotation);
+
+            }
+        }
+        else if (direction.y < 0) //down
+        {
+            if ((direction.x) > 0) //right or left
+            {
+                //Debug.Log("straight right");
+                rotation = new Vector3(0, 0, 0);
+                //transform.Rotate(rotation * Time.deltaTime);
+                playerSprites.transform.rotation = Quaternion.Euler(rotation);
+
+            }
+            else if ((direction.x) < 0)
+            {
+                //Debug.Log("straight down");
+                rotation = new Vector3(0, 0, 270);
+                //transform.Rotate(rotation * Time.deltaTime);
+                playerSprites.transform.rotation = Quaternion.Euler(rotation);
+
+
+            }
+            else
+            {
+                //Debug.Log("down right");
+                rotation = new Vector3(0, 0, 315);
+                //transform.Rotate(rotation * Time.deltaTime);
+                playerSprites.transform.rotation = Quaternion.Euler(rotation);
+
+            }
+
+        }
+        if (direction.x == -1 && direction.y == 0)
+        {
+            //down and left
+            rotation = new Vector3(0, 0, 225);
+            //transform.Rotate(rotation * Time.deltaTime);
+            playerSprites.transform.rotation = Quaternion.Euler(rotation);
+
+        }
+        if (direction.x == 1 && direction.y == 0)
+        {
+            //Up right
+            rotation = new Vector3(0, 0, 45);
+           // transform.Rotate(rotation * Time.deltaTime);
+            playerSprites.transform.rotation = Quaternion.Euler(rotation);
+        }
     }
 }
