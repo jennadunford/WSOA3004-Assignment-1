@@ -20,7 +20,7 @@ public class instantiatestuffonthetilemap : MonoBehaviour
         int rand2 = Random.Range(5, 11);
             for (int i = 0; i <= rand; i++)
             {
-            Debug.Log("first for loop");
+         
                 for (int j = 0; j <= rand2; j++)
                 {
                     position = new Vector3Int(xpos + i, ypos + j, 0);
