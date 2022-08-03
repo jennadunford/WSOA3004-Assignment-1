@@ -34,7 +34,7 @@ public class eightDirectionMovement : MonoBehaviour
     {
         direction = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")).normalized;
 
-        // playerBody.velocity = direction * walkSpeed;
+         playerBody.velocity = direction * walkSpeed;
 
         //flip();
 

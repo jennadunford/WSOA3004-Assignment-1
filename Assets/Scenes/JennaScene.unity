@@ -1938,7 +1938,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1026849316}
   - component: {fileID: 1026849315}
-  - component: {fileID: 1026849314}
   - component: {fileID: 1026849313}
   - component: {fileID: 1026849312}
   - component: {fileID: 1026849317}
@@ -1992,21 +1991,7 @@ MonoBehaviour:
   frSprite: {fileID: 0}
   blSprite: {fileID: 0}
   brSprite: {fileID: 0}
-  walkSpeed: 0
---- !u!114 &1026849314
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1026849311}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1be338e4e35c6264ba869f46ddc3f7fe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  grid: {fileID: 1646593523}
-  speed: 3
+  walkSpeed: 4
 --- !u!212 &1026849315
 SpriteRenderer:
   m_ObjectHideFlags: 0
