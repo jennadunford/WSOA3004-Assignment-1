@@ -34,12 +34,12 @@ public class eightDirectionMovement : MonoBehaviour
     {
         direction = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")).normalized;
 
-         playerBody.velocity = direction * walkSpeed;
+         //playerBody.velocity = direction * walkSpeed;
 
         //flip();
 
         //setSprite();
-        // setSpriteIso();
+         //setSpriteIso();
 
         rotateForMovement();
 
@@ -180,7 +180,7 @@ public class eightDirectionMovement : MonoBehaviour
         {
             if ((direction.x) > 0) //right or left
             {
-                rotation = new Vector3(0, 0, 90);
+                rotation = new Vector3(0, 0, 45);
                 //Debug.Log("straight up");
                // transform.Rotate(rotation* Time.deltaTime);
                 playerSprites.transform.rotation = Quaternion.Euler(rotation);
@@ -190,14 +190,14 @@ public class eightDirectionMovement : MonoBehaviour
             else if ((direction.x) < 0)
             {
                 //Debug.Log("straight left");
-                rotation = new Vector3(0, 0, 180);
+                rotation = new Vector3(0, 0, 135);
                // transform.Rotate(rotation * Time.deltaTime);
                 playerSprites.transform.rotation = Quaternion.Euler(rotation);
             }
             else
             {
                 //Debug.Log("up left");
-                rotation = new Vector3(0, 0, 135);
+                rotation = new Vector3(0, 0, 90);
                 //transform.Rotate(rotation * Time.deltaTime);
                 playerSprites.transform.rotation = Quaternion.Euler(rotation);
 
@@ -208,7 +208,7 @@ public class eightDirectionMovement : MonoBehaviour
             if ((direction.x) > 0) //right or left
             {
                 //Debug.Log("straight right");
-                rotation = new Vector3(0, 0, 0);
+                rotation = new Vector3(0, 0, 315);
                 //transform.Rotate(rotation * Time.deltaTime);
                 playerSprites.transform.rotation = Quaternion.Euler(rotation);
 
@@ -216,7 +216,7 @@ public class eightDirectionMovement : MonoBehaviour
             else if ((direction.x) < 0)
             {
                 //Debug.Log("straight down");
-                rotation = new Vector3(0, 0, 270);
+                rotation = new Vector3(0, 0, 225);
                 //transform.Rotate(rotation * Time.deltaTime);
                 playerSprites.transform.rotation = Quaternion.Euler(rotation);
 
@@ -225,7 +225,7 @@ public class eightDirectionMovement : MonoBehaviour
             else
             {
                 //Debug.Log("down right");
-                rotation = new Vector3(0, 0, 315);
+                rotation = new Vector3(0, 0, 270);
                 //transform.Rotate(rotation * Time.deltaTime);
                 playerSprites.transform.rotation = Quaternion.Euler(rotation);
 
@@ -235,7 +235,7 @@ public class eightDirectionMovement : MonoBehaviour
         if (direction.x == -1 && direction.y == 0)
         {
             //down and left
-            rotation = new Vector3(0, 0, 225);
+            rotation = new Vector3(0, 0, 180);
             //transform.Rotate(rotation * Time.deltaTime);
             playerSprites.transform.rotation = Quaternion.Euler(rotation);
 
@@ -243,7 +243,7 @@ public class eightDirectionMovement : MonoBehaviour
         if (direction.x == 1 && direction.y == 0)
         {
             //Up right
-            rotation = new Vector3(0, 0, 45);
+            rotation = new Vector3(0, 0, 0);
            // transform.Rotate(rotation * Time.deltaTime);
             playerSprites.transform.rotation = Quaternion.Euler(rotation);
         }
