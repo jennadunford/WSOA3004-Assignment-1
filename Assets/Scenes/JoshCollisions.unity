@@ -663,7 +663,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 339752936}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.65, y: 0.4, z: -10}
+  m_LocalPosition: {x: -4.17, y: -4.49, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1125,7 +1125,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1136517925}
   - component: {fileID: 1136517924}
-  - component: {fileID: 1136517922}
   - component: {fileID: 1136517921}
   - component: {fileID: 1136517920}
   - component: {fileID: 1136517926}
@@ -1177,29 +1176,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &1136517922
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1136517919}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 651ca12038577a64a9a56c1551874a29, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerBody: {fileID: 1136517921}
-  playerSprites: {fileID: 1136517924}
-  fSprite: {fileID: 0}
-  bSprite: {fileID: 0}
-  lSprite: {fileID: 0}
-  rSprite: {fileID: 0}
-  flSprite: {fileID: 0}
-  frSprite: {fileID: 0}
-  blSprite: {fileID: 0}
-  brSprite: {fileID: 0}
-  walkSpeed: 0
 --- !u!114 &1136517923
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1214,9 +1190,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grid: {fileID: 1977716721}
   laneDirection: 0
-  laneSpeed: 1
-  shiftSpeed: -5
-  normalized: 0
+  invertLeft: 0
+  invertRight: 1
+  laneSpeed: 3
+  shiftSpeed: 0
+  shitfSpeedMin: 1
+  shiftSpeedMax: 10
+  shiftAcceleration: 3
 --- !u!212 &1136517924
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1277,7 +1257,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1136517919}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.65, y: 0.4, z: 0}
+  m_LocalPosition: {x: -4.17, y: -4.49, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

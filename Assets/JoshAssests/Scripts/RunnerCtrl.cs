@@ -7,10 +7,11 @@ public class RunnerCtrl : MonoBehaviour
     const string inputShiftAxis = "Horizontal";
     [SerializeField] private Grid grid;
     [SerializeField] private LaneDirection laneDirection;
+    [SerializeField] private bool invertLeft = false, invertRight = true;
 
-    [SerializeField] private float laneSpeed = 1f, shiftSpeed = 1f;
-    [SerializeField] bool normalized;
-    private bool isShifting = false;
+    [SerializeField] private float laneSpeed = 1f, shiftSpeed = 1f, shitfSpeedMin = 1f, shiftSpeedMax = 5f, shiftAcceleration;
+    private float currShiftSpeed;
+    private bool isShifting = true; // assume that tuttle is originally moving to help setup
 
     private Rigidbody2D rb;
 
@@ -26,7 +27,7 @@ public class RunnerCtrl : MonoBehaviour
 
     }
 
-    void Update()
+    void FixedUpdate()
     {
         Move();
     }
@@ -61,32 +62,6 @@ public class RunnerCtrl : MonoBehaviour
         }
 
     }
-
-    // Allignment
-    private void AllignPath()
-    {
-        Vector3 gridCord = grid.WorldToCell(transform.position);
-        Debug.Log(gridCord);
-    }
-
-    // Co-or finding 
-    /* private float GetLaneOffset()
-     {
-
-     }
-     private float GetShiftOffset()
-     {
-
-     }
-
-     private Vector3 shiftVect()
-     {
-
-     }*/
-    private Vector3 GetCellCentre()
-    {
-        return grid.CellToWorld(grid.WorldToCell(transform.position));
-    }
     // Movement
     private void Move()
     {
@@ -94,13 +69,65 @@ public class RunnerCtrl : MonoBehaviour
     }
     private Vector3 GetForwardMove()
     {
-        return laneSpeed * LaneDir;
+        return GetForwardSpeed() * LaneDir;
     }
     private Vector3 GetSideMove()
     {
-        return Input.GetAxis(inputShiftAxis) * shiftSpeed * ShiftDir;
+        int invert = 1;
+        if(invertLeft && laneDirection == LaneDirection.Left || invertRight && laneDirection == LaneDirection.Right)
+        {
+            invert = -1;
+        }
+
+        bool shiftInput = Input.GetAxis(inputShiftAxis) != 0;
+        if (isShifting && !shiftInput)
+        {
+            // reset shift speed
+            currShiftSpeed = shiftSpeed;
+        }
+        isShifting = shiftInput;
+        if (!isShifting)
+        {
+            return new Vector3(0, 0, 0);
+        }
+
+        // Player is still moving
+        return Input.GetAxis(inputShiftAxis) * GetShiftSpeed() * invert * ShiftDir;
     }
 
+    private float GetForwardSpeed()
+    {
+        return laneSpeed;
+    }
+    private float GetShiftSpeed()
+    {
+        if(shiftAcceleration > 0)
+        {
+            // ensure max speed is not exceeded
+            if(currShiftSpeed < shiftSpeedMax)
+            {
+                currShiftSpeed += Time.fixedDeltaTime * shiftAcceleration;
+            }
+            else if(shiftSpeed > shiftSpeedMax)
+            {
+                currShiftSpeed = shiftSpeedMax;
+            }
+        }
+        else if(shiftAcceleration < 0)
+        {
+            // Ensure that speed is never slower than min
+            if(currShiftSpeed > shitfSpeedMin)
+            {
+                currShiftSpeed += currShiftSpeed += Time.fixedDeltaTime * shiftAcceleration;
+            }
+            else if (currShiftSpeed < shitfSpeedMin)
+            {
+                currShiftSpeed = shitfSpeedMin;
+            }
+        }
+
+        return currShiftSpeed;
+    }
     [System.Serializable]
     public enum LaneDirection
     {
