@@ -6,6 +6,10 @@ public class RunnerCtrl : MonoBehaviour
 {
     const string inputShiftAxis = "Horizontal";
     [SerializeField] private Grid grid;
+
+    [SerializeField] int startRow, startColumn;
+    [SerializeField] int sideMin, sideMax;
+
     [SerializeField] private LaneDirection laneDirection;
     [SerializeField] private bool invertLeft = false, invertRight = true;
 
@@ -23,7 +27,12 @@ public class RunnerCtrl : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+
         SetDirection();
+
+        // Move rb to its start postion
+        Vector3 startPos = grid.CellToWorld(new Vector3Int(startRow, startColumn, 0));
+        rb.MovePosition(GetTileCoords(startPos));
 
     }
 
@@ -33,25 +42,30 @@ public class RunnerCtrl : MonoBehaviour
     }
 
     // Setup methods
+    // -> Vecotr finding
     public void SetDirection()
     {
-        Vector3 origin = grid.CellToWorld(new Vector3Int(0, 0, 0));
-        Vector3 laneRef, shiftRef;
-
-
         if (laneDirection == LaneDirection.Right)
         {
-            laneRef = grid.CellToWorld(new Vector3Int(1, 0, 0));
-            shiftRef = grid.CellToWorld(new Vector3Int(0, 1, 0));
+            LaneDir = GetRowVect();
+            ShiftDir = GetColVect();
         }
         else
         {
-            laneRef = grid.CellToWorld(new Vector3Int(0, 1, 0));
-            shiftRef = grid.CellToWorld(new Vector3Int(1, 0, 0));
+            LaneDir = GetColVect();
+            ShiftDir = GetRowVect();
         }
+    }
 
-        LaneDir = (laneRef - origin).normalized;
-        ShiftDir = (shiftRef - origin).normalized;
+    // returns and isometric 'unit' vector for rows
+    public Vector3 GetRowVect()
+    {
+        return grid.CellToWorld(new Vector3Int(1, 0, 0)) - grid.CellToWorld(new Vector3Int(0, 0, 0));
+    }
+    // retruns and isometric 'unit' vector for columens
+    public Vector3 GetColVect()
+    {
+        return grid.CellToWorld(new Vector3Int(0, 1, 0)) - grid.CellToWorld(new Vector3Int(0, 0, 0));
     }
     public void SetDirection(LaneDirection dir)
     {
@@ -128,6 +142,22 @@ public class RunnerCtrl : MonoBehaviour
 
         return currShiftSpeed;
     }
+
+    // === Tile postion mananment ===
+    // Find the co-ods of a tile hat corresposnds to a row
+    private Vector3 GetTileCoords(Vector3 CellCoords)
+    {
+        // Find centre of tile in the positvie direction along rows and colums
+        // Assume no cell gap
+        Vector3 rowShit = 0.5f * GetRowVect();
+        Vector3 colShift = 0.5f * GetColVect();
+
+        return CellCoords + rowShit + colShift;
+    }
+
+
+
+
     [System.Serializable]
     public enum LaneDirection
     {
