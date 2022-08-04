@@ -18,6 +18,7 @@ public class RunnerCtrl : MonoBehaviour
     private bool isShifting = true; // assume that tuttle is originally moving to help setup
 
     private Rigidbody2D rb;
+    private IsoVect isoVect;
 
 
     public Vector3 LaneDir { get; protected set; }
@@ -29,15 +30,21 @@ public class RunnerCtrl : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
 
         SetDirection();
+        isoVect = new IsoVect(GetRowVect(), GetColVect());
 
         // Move rb to its start postion
         Vector3 startPos = grid.CellToWorld(new Vector3Int(startRow, startColumn, 0));
         rb.MovePosition(GetTileCoords(startPos));
 
+        Debug.Log(Vector2.Angle(new Vector2(1, 0), ShiftDir) + " is the shoft angle");
+        Debug.Log(isoVect.rowVect.y + " is row");
+        Debug.Log(ShiftDir.normalized.y + " is shift");
     }
 
     void FixedUpdate()
     {
+        // Debug.Log("rb V" + rb.velocity.normalized);
+        Debug.Log(isoVect.IsoComponents(rb.velocity));
         Move();
     }
 
