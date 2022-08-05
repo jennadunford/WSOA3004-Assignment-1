@@ -31,6 +31,7 @@ public class PlayerBounds : MonoBehaviour
     private void FixedUpdate()
     {
         displacment = PlayerRb.position - startPos;
+        CheckBounds();
     }
     // === Player setup ===
     public void SetPlayer(Rigidbody2D playerRb)
@@ -53,7 +54,7 @@ public class PlayerBounds : MonoBehaviour
             col = GetYVect();
             row = GetXVect();
         }
-        Axese = new nonOrthoAxis(col, row);
+        Axese = new nonOrthoAxis(row, col);
 
         OnDirectionChange?.Invoke(Axese);
     }
@@ -100,8 +101,9 @@ public class PlayerBounds : MonoBehaviour
         Vector2 lowDis = start - ((lowBound + 0.5f * grid.cellSize.y) * Axese.rowVect);
         Vector2 highDis = start + ((highBound + 0.5f * grid.cellSize.y) * Axese.rowVect);
 
-
-        Debug.Log("low: " + lowDis + "High dis " + highDis);
+        lowBound = Axese.RowComponent(lowDis);
+        highBound = Axese.RowComponent(highDis);
+        Debug.Log("low: " + lowBound + "High dis " + highBound);
     }
 
     private void CheckBounds()
@@ -117,6 +119,14 @@ public class PlayerBounds : MonoBehaviour
 
     // === Getters and setters ===
     public Grid GetGrid() { return grid; }
+    public LaneDirection GetDirection() { return laneDirection; }
+
+    // returns corrected input to ensure axes act intutivly
+    public int GetInputCorrection()
+    {
+        if (laneDirection == LaneDirection.Right) { return -1; }
+        return 1;
+    }
 
     // Useful classes, enums and structs
 
@@ -128,7 +138,7 @@ public class PlayerBounds : MonoBehaviour
     }
 
 
-    // === s tatic Tile postion mananment ===
+    // === static Tile postion mananment ===
     private Vector2 CellToTile(int x, int y)
     {
         return CellToTile(new Vector2Int(x, y));

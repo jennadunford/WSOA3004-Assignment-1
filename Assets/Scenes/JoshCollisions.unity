@@ -1247,7 +1247,6 @@ GameObject:
   - component: {fileID: 1136517921}
   - component: {fileID: 1136517920}
   - component: {fileID: 1136517926}
-  - component: {fileID: 1136517923}
   - component: {fileID: 1136517922}
   - component: {fileID: 1136517928}
   - component: {fileID: 1136517927}
@@ -1310,31 +1309,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed122bd16c7be29408ef1c3b98399c2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1136517923
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1136517919}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f4901d4bf019614aa8711c46f67a255, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  grid: {fileID: 1977716721}
-  startRow: 2
-  startColumn: 1
-  sideMin: 0
-  sideMax: 0
-  laneDirection: 0
-  invertLeft: 0
-  invertRight: 1
-  laneSpeed: 0
-  shiftSpeed: 2
-  shitfSpeedMin: 1
-  shiftSpeedMax: 10
-  shiftAcceleration: 0
 --- !u!212 &1136517924
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1440,7 +1414,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bounds: {fileID: 1136517928}
-  forwardSpeed: 4
+  forwardSpeed: 3
+  shiftForce: 0.5
   shiftAxis: Horizontal
 --- !u!114 &1136517928
 MonoBehaviour:

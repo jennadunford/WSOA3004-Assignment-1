@@ -5,27 +5,37 @@ using UnityEngine;
 public class BoundedRunnerCtrl : MonoBehaviour
 {
     [SerializeField] PlayerBounds bounds;
-    [SerializeField] private float forwardSpeed;
+    [SerializeField] private float forwardSpeed= 1f, shiftForce = 1f;
     [SerializeField] string shiftAxis = "Horizontal";
+    private int inputCorrection = 1;
+
+    public bool IsRunning { get; private set; } = false;
     Rigidbody2D rb;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         bounds.SetPlayer(rb);
+        bounds.OnOutOfBounds.AddListener(GG);
         StartRunning();
     }
 
     private void Update()
     {
-        rb.AddForce(Input.GetAxis(shiftAxis) * bounds.Axese.colVect);
-        rb.velocity = bounds.Axese.ColComponentVect(rb.velocity) + bounds.Axese.rowVect * forwardSpeed;
+        if (IsRunning)
+        {
+            rb.AddForce(Input.GetAxis(shiftAxis) * bounds.GetInputCorrection() * shiftForce * bounds.Axese.rowVect);
+            rb.velocity = bounds.Axese.RowComponentVect(rb.velocity) + bounds.Axese.colVect * forwardSpeed;
+        }
+    }
 
-        Debug.Log(bounds.Axese.RowComponent(rb.velocity));
+    private void GG()
+    {
+        Debug.Log("outtutut");
     }
 
     public void StartRunning()
     {
-        rb.velocity = bounds.Axese.rowVect * forwardSpeed;
+        IsRunning = true;
     }
 }
