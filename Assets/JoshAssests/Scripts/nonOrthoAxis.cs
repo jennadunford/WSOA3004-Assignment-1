@@ -16,7 +16,6 @@ public class nonOrthoAxis
     public readonly Vector2 colVect;
     public nonOrthoAxis(Vector2 _rowVect, Vector2 _colVect)
     {
-        Debug.Log("ROw" + _rowVect + " col " + _colVect);
         rowVect = _rowVect.normalized;
         colVect = _colVect.normalized;
 

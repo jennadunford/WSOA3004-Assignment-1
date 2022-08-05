@@ -8,6 +8,7 @@ public class RotateRb : MonoBehaviour
 {
     private Rigidbody2D rb;
     private readonly Vector3 refLine = new Vector3(1, 0, 0);
+    [SerializeField] private bool rotate = true;
 
     private void Start()
     {
@@ -16,8 +17,16 @@ public class RotateRb : MonoBehaviour
 
     private void FixedUpdate()
     {
-        float angle = Vector3.Angle(refLine, rb.velocity);
-        rb.MoveRotation(angle);
+        if (rotate)
+        {
+            float angle = Vector3.Angle(refLine, rb.velocity);
+            rb.MoveRotation(angle);
+        }
+    }
 
+    public void Spin(float angularVelocity)
+    {
+        rotate = false;
+        rb.angularVelocity = angularVelocity;
     }
 }

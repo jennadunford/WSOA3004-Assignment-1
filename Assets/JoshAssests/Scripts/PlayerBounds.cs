@@ -9,7 +9,7 @@ public class PlayerBounds : MonoBehaviour
 {
     [SerializeField] private Grid grid;
 
-    [SerializeField] int startX, startY, leftBound = 1, rightBound = 1;
+    [SerializeField] int startX, startY, lowLane = 1, highLane = 1;
     [SerializeField] float tollerance = 0f; // How far out of bounds can player move before event is triggered
     private float lowBound, highBound;
 
@@ -31,7 +31,6 @@ public class PlayerBounds : MonoBehaviour
     private void FixedUpdate()
     {
         displacment = PlayerRb.position - startPos;
-        CheckBounds();
     }
     // === Player setup ===
     public void SetPlayer(Rigidbody2D playerRb)
@@ -98,21 +97,21 @@ public class PlayerBounds : MonoBehaviour
     private void SetBounds(Vector2 start)
     {
         // assume that rows and colums have the same size
-        Vector2 lowDis = start - ((lowBound + 0.5f * grid.cellSize.y) * Axese.rowVect);
-        Vector2 highDis = start + ((highBound + 0.5f * grid.cellSize.y) * Axese.rowVect);
+        Vector2 lowDis = -1 * (lowLane + 0.5f) * grid.cellSize.y * Axese.rowVect;
+        Vector2 highDis = (highLane + 0.5f) * grid.cellSize.y * Axese.rowVect;
 
         lowBound = Axese.RowComponent(lowDis);
         highBound = Axese.RowComponent(highDis);
         Debug.Log("low: " + lowBound + "High dis " + highBound);
     }
 
-    private void CheckBounds()
+    public void CheckBounds()
     {
         float deltaRow = Axese.RowComponent(displacment);
 
-        if(deltaRow < lowBound || deltaRow > highBound)
+        if(deltaRow < lowBound - tollerance|| deltaRow > highBound + tollerance)
         {
-            Debug.Log("OUT");
+            Debug.Log("OUT" + deltaRow);
             OnOutOfBounds?.Invoke();
         }
     }
