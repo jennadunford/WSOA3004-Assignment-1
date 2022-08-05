@@ -16,7 +16,9 @@ public class PlayerBounds : MonoBehaviour
     [SerializeField] private LaneDirection laneDirection;
 
     public Rigidbody2D PlayerRb { get; private set; }
-    private Vector2 startPos, displacment, row, col;
+    public Vector2 StartPos { get; private set; }
+    public Vector2 Displacment { get; private set; }
+    private Vector2 row, col;
     public nonOrthoAxis Axese { get; set; }
 
 
@@ -30,7 +32,7 @@ public class PlayerBounds : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        displacment = PlayerRb.position - startPos;
+        Displacment = PlayerRb.position - StartPos;
     }
     // === Player setup ===
     public void SetPlayer(Rigidbody2D playerRb)
@@ -86,10 +88,10 @@ public class PlayerBounds : MonoBehaviour
     // === player allignment ===
     private void AllignPlayer()
     {
-        startPos = CellToTile(startX, startY);
-        PlayerRb.MovePosition(startPos);
+        StartPos = CellToTile(startX, startY);
+        PlayerRb.MovePosition(StartPos);
 
-        SetBounds(startPos);
+        SetBounds(StartPos);
     }
 
 
@@ -106,7 +108,7 @@ public class PlayerBounds : MonoBehaviour
 
     public void CheckBounds()
     {
-        float deltaRow = Axese.RowComponent(displacment);
+        float deltaRow = Axese.RowComponent(Displacment);
 
         if(deltaRow < lowBound - tollerance|| deltaRow > highBound + tollerance)
         {
