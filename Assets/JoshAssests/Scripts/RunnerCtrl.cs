@@ -9,6 +9,8 @@ public class RunnerCtrl : MonoBehaviour
 
     [SerializeField] int startRow, startColumn;
     [SerializeField] int sideMin, sideMax;
+    public Vector2 DeltaPos { get; private set; }
+    private Vector2 startPos;
 
     [SerializeField] private LaneDirection laneDirection;
     [SerializeField] private bool invertLeft = false, invertRight = true;
@@ -25,6 +27,7 @@ public class RunnerCtrl : MonoBehaviour
     public Vector3 ShiftDir { get; protected set; }
 
 
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -33,18 +36,14 @@ public class RunnerCtrl : MonoBehaviour
         isoVect = new IsoVect(GetRowVect(), GetColVect());
 
         // Move rb to its start postion
-        Vector3 startPos = grid.CellToWorld(new Vector3Int(startRow, startColumn, 0));
-        rb.MovePosition(GetTileCoords(startPos));
-
-        Debug.Log(Vector2.Angle(new Vector2(1, 0), ShiftDir) + " is the shoft angle");
-        Debug.Log(isoVect.rowVect.y + " is row");
-        Debug.Log(ShiftDir.normalized.y + " is shift");
+        startPos = grid.CellToWorld(new Vector3Int(startRow, startColumn, 0));
+        startPos = GetTileCoords(startPos);
+        rb.MovePosition(startPos);
     }
 
     void FixedUpdate()
     {
-        // Debug.Log("rb V" + rb.velocity.normalized);
-        Debug.Log(isoVect.IsoComponents(rb.velocity));
+        DeltaPos = rb.position - startPos;
         Move();
     }
 

@@ -21,7 +21,7 @@ public class IsoVect
 
         Vector2 refVect = new Vector2(1, 0);
 
-        isoAnlge = 2f * Vector2.Angle(rowVect, refVect);
+        isoAnlge = Mathf.Deg2Rad * 2f * Vector2.Angle(rowVect, refVect);
     }
 
 
@@ -30,8 +30,7 @@ public class IsoVect
     // Returns the maganaturde of the row component of vector 'vect'
     public float RowComponent(Vector2 vect)
     {
-        float angle = Vector2.SignedAngle(vect, colVect); // note direction of angle
-        Debug.Log("Col angle is " + angle);
+        float angle = Mathf.Deg2Rad * Vector2.SignedAngle(vect, colVect); // note direction of angle
 
         // use sin rule to find length of other side
         return Mathf.Sin(angle) * (vect.magnitude / Mathf.Sin(isoAnlge));
@@ -39,8 +38,7 @@ public class IsoVect
     // Returns the maganaturde of the col[umn] component of vector 'vect'
     public float ColComponent(Vector2 vect)
     {
-        float angle = Vector2.SignedAngle(rowVect, vect); // note direction of angle
-        Debug.Log("row angle is " + angle);
+        float angle = Mathf.Deg2Rad * Vector2.SignedAngle(rowVect, vect); // note direction of angle
 
         // use sin rule to find length of other side
         return Mathf.Sin(angle) * (vect.magnitude / Mathf.Sin(isoAnlge));
