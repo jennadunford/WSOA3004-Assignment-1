@@ -20,7 +20,6 @@ public class RunnerCtrl : MonoBehaviour
     private bool isShifting = true; // assume that tuttle is originally moving to help setup
 
     private Rigidbody2D rb;
-    private IsoVect isoVect;
 
 
     public Vector3 LaneDir { get; protected set; }
@@ -33,7 +32,6 @@ public class RunnerCtrl : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
 
         SetDirection();
-        isoVect = new IsoVect(GetRowVect(), GetColVect());
 
         // Move rb to its start postion
         startPos = grid.CellToWorld(new Vector3Int(startRow, startColumn, 0));

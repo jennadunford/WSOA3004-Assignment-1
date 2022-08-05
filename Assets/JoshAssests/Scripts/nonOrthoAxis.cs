@@ -7,14 +7,14 @@ using UnityEngine;
 // Iso vectros are split into two compeoents
 // Row runs up + right at 60 deg
 // Col runs up + left at 150 deg
-public class IsoVect
+public class nonOrthoAxis
 {
     private readonly float isoAnlge;
 
     // Axis unit vectors 
     public readonly Vector2 rowVect;
     public readonly Vector2 colVect;
-    public IsoVect(Vector2 _rowVect, Vector2 _colVect)
+    public nonOrthoAxis(Vector2 _rowVect, Vector2 _colVect)
     {
         rowVect = _rowVect.normalized;
         colVect = _colVect.normalized;
@@ -56,5 +56,24 @@ public class IsoVect
     public Vector2 ColComponentVect(Vector2 vect)
     {
         return ColComponent(vect) * colVect;
+    }
+
+    // === other compoent based opperations ===
+
+    // Returns distance between two vectors prejected along the row axis
+    public float RowDistance(Vector2 from, Vector2 to)
+    {
+        return RowComponent(to - from);
+    }
+    // Returns distance between two vectors projected along column axis
+    public float ColDistance(Vector2 from, Vector2 to)
+    {
+        return ColComponent(to - from);
+    }
+
+    // Management
+    public nonOrthoAxis SwapAxis()
+    {
+        return new nonOrthoAxis(colVect, rowVect);
     }
 }

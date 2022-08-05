@@ -758,7 +758,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 2
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -782,7 +782,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 339752936}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: -3.13, y: 0.29, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1249,6 +1249,8 @@ GameObject:
   - component: {fileID: 1136517926}
   - component: {fileID: 1136517923}
   - component: {fileID: 1136517922}
+  - component: {fileID: 1136517928}
+  - component: {fileID: 1136517927}
   m_Layer: 0
   m_Name: turtle
   m_TagString: Player
@@ -1315,20 +1317,20 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1136517919}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8f4901d4bf019614aa8711c46f67a255, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   grid: {fileID: 1977716721}
-  startRow: 0
+  startRow: 2
   startColumn: 1
   sideMin: 0
   sideMax: 0
   laneDirection: 0
   invertLeft: 0
   invertRight: 1
-  laneSpeed: 3
+  laneSpeed: 0
   shiftSpeed: 2
   shitfSpeedMin: 1
   shiftSpeedMax: 10
@@ -1393,8 +1395,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1136517919}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -3.13, y: 0.29, z: 0}
+  m_LocalScale: {x: 0.75, y: 0.75, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
@@ -1425,6 +1427,46 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 0.5}
   m_EdgeRadius: 0
+--- !u!114 &1136517927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1136517919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 746a1235df3199f42bdada710398469f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bounds: {fileID: 1136517928}
+  forwardSpeed: 4
+  shiftAxis: Horizontal
+--- !u!114 &1136517928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1136517919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f1ba105959d166409b8fd28cc8fd80f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grid: {fileID: 1977716721}
+  startX: 1
+  startY: 1
+  leftBound: 1
+  rightBound: 1
+  tollerance: 0
+  laneDirection: 0
+  OnOutOfBounds:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDirectionChange:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1601826507
 GameObject:
   m_ObjectHideFlags: 0
