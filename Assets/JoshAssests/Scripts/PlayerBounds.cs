@@ -102,7 +102,6 @@ public class PlayerBounds : MonoBehaviour
 
         lowBound = Axese.RowComponent(lowDis);
         highBound = Axese.RowComponent(highDis);
-        Debug.Log("low: " + lowBound + "High dis " + highBound);
     }
 
     public void CheckBounds()
@@ -111,7 +110,6 @@ public class PlayerBounds : MonoBehaviour
 
         if(deltaRow < lowBound - tollerance|| deltaRow > highBound + tollerance)
         {
-            Debug.Log("OUT" + deltaRow);
             OnOutOfBounds?.Invoke();
         }
     }

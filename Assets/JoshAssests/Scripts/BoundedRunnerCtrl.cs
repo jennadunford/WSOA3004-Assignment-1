@@ -8,13 +8,22 @@ public class BoundedRunnerCtrl : MonoBehaviour
     [SerializeField] private float forwardSpeed = 1f, shiftForce = 1f, outDrag = 1f, maxOutSpeed, outSpin = 10f;
     [SerializeField] string shiftAxis = "Horizontal";
 
+    private bool ready = true;
     public bool IsRunning { get; private set; } = false;
     private bool outOfBound = false;
-    Rigidbody2D rb;
+    private Rigidbody2D rb;
+    private CollisonId colId;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        if(!(colId = GetComponent<CollisonId>()))
+        {
+            Debug.LogWarning("No collion ID checker attached to player obejct " + gameObject);
+        }
+
+        colId.OnObsticleHit.AddListener(OnObsticleHit);
+
         bounds.SetPlayer(rb);
         bounds.OnOutOfBounds.AddListener(OutOfBounds);
     }
@@ -27,21 +36,22 @@ public class BoundedRunnerCtrl : MonoBehaviour
             rb.velocity = bounds.Axese.RowComponentVect(rb.velocity) + bounds.Axese.colVect * forwardSpeed;
             bounds.CheckBounds();
         }
-        if (outOfBound && bounds.Axese.ColComponent(rb.velocity) > -maxOutSpeed)
+        else if (outOfBound && bounds.Axese.ColComponent(rb.velocity) > -maxOutSpeed)
         {
             // Gradually deccelerate 
             rb.AddForce(-outDrag * bounds.Axese.colVect);
         }
-        else
+        else if(ready)
         {
             if (Input.anyKeyDown)
             {
+                ready = false;
                 StartRunning();
             }
         }
     }
 
-
+    // game managment events
     private void OutOfBounds()
     {
         IsRunning = false;
@@ -51,10 +61,17 @@ public class BoundedRunnerCtrl : MonoBehaviour
             rrb.Spin(outSpin);
         }
     }
+    private void OnObsticleHit()
+    {
+        IsRunning = false;
+        if (GetComponent<RotateRb>() is RotateRb rrb)
+        {
+            rrb.Spin(outSpin);
+        }
+    }
 
     public void StartRunning()
     {
         IsRunning = true;
-        Debug.Log("he");
     }
 }
