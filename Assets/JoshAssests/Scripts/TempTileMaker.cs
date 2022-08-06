@@ -22,7 +22,7 @@ public class TempTileMaker : MonoBehaviour
         {
             for(int j = 0; j < cols; j++)
             {
-                floorMap.SetTile(new Vector3Int(i, j, 0), floor);
+                floorMap.SetTile(new Vector3Int(i + rStart, j + cStart, 0), floor);
             }
         }
     }

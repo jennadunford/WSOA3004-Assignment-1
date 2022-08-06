@@ -32,7 +32,7 @@ public class PlayerBounds : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        Displacment = PlayerRb.position - StartPos;
+
     }
     // === Player setup ===
     public void SetPlayer(Rigidbody2D playerRb)
@@ -45,6 +45,7 @@ public class PlayerBounds : MonoBehaviour
     // === Axis setup ===
     public void SetDirection(LaneDirection dir)
     {
+        laneDirection = dir;
         if (dir == LaneDirection.Right)
         {
             col = GetXVect();
@@ -60,8 +61,10 @@ public class PlayerBounds : MonoBehaviour
         OnDirectionChange?.Invoke(Axese);
     }
 
-    public void SwapDirection()
+    public void SwapDirection(int laneX, int laneY)
     {
+        startX = laneX;
+        startY = laneY;
         if (laneDirection == LaneDirection.Right)
         {
             SetDirection(LaneDirection.Left);
@@ -70,7 +73,12 @@ public class PlayerBounds : MonoBehaviour
         {
             SetDirection(LaneDirection.Right);
         }
-     
+
+
+        // Redfine lane bounds
+        StartPos = CellToTile(startX, startY);
+        SetBounds(StartPos);
+
     }
 
     // returns and isometric 'unit' vector for x grid rows
@@ -108,6 +116,7 @@ public class PlayerBounds : MonoBehaviour
 
     public void CheckBounds()
     {
+        Displacment = PlayerRb.position - StartPos;
         float deltaRow = Axese.RowComponent(Displacment);
 
         if(deltaRow < lowBound - tollerance|| deltaRow > highBound + tollerance)

@@ -26,6 +26,7 @@ public class BoundedRunnerCtrl : MonoBehaviour
 
         bounds.SetPlayer(rb);
         bounds.OnOutOfBounds.AddListener(OutOfBounds);
+        bounds.OnDirectionChange.AddListener(OnDirectionChange);
     }
 
     private void FixedUpdate()
@@ -68,6 +69,11 @@ public class BoundedRunnerCtrl : MonoBehaviour
         {
             rrb.Spin(outSpin);
         }
+    }
+
+    private void OnDirectionChange(nonOrthoAxis axis)
+    {
+        rb.velocity = new Vector2(0, 0);
     }
 
     public void StartRunning()

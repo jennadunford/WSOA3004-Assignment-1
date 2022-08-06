@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - obsticle
+  - action
   layers:
   - Default
   - TransparentFX
