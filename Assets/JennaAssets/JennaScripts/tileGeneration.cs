@@ -44,9 +44,11 @@ public class tileGeneration : MonoBehaviour
         }
         if (makeNew2)
         {
-            createStraightRight(lastSpawnCoord.x, lastSpawnCoord.y, Random.Range(6,20));
-            makeNew2 = false;
+            createStraightRight(lastSpawnCoord.x, lastSpawnCoord.y, Random.Range(3,20));         
             createTurnRightToStraight(lastSpawnCoord.x,lastSpawnCoord.y);
+            bool f = false;
+            createStraight(lastSpawnCoord.x, lastSpawnCoord.y, Random.Range(3, 20),f);
+            makeNew2 = false;
         }
        
         
@@ -66,10 +68,12 @@ public class tileGeneration : MonoBehaviour
             }
             Vector3Int pos3 = new Vector3Int(startx + 9, starty - 1, 0);
             addTile(6, pos3);
+            Vector3Int pos4 = new Vector3Int(startx-1, starty, 0);
+            addTile(3, pos4);
         }
         for(int x=0; x < length; x++)
         {
-            Vector3Int pos = new Vector3Int((startx - 1), (starty+ x), 0);
+            Vector3Int pos = new Vector3Int((startx - 1), (starty+ x +1), 0);
             addTile(3, pos);
         }
         for(int i = 0; i<10; i++)
@@ -101,6 +105,7 @@ public class tileGeneration : MonoBehaviour
         }
 
         makeNew = true;
+       
     }
 
     public void createTurnRight(int startx, int starty)
@@ -231,16 +236,23 @@ public class tileGeneration : MonoBehaviour
             Vector3Int pos = new Vector3Int((startx + x + 1), (starty - 10), 0);
             addTile(4, pos);
         }
-        Vector3Int pos2 = new Vector3Int((startx + 10), (starty - 10), 0);
+        Vector3Int pos2 = new Vector3Int((startx + 9),(starty - 10), 0);
         addTile(6, pos2);
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 9; i++)
         {
-            for(int j =0; j < 10; j++)
+            for (int j = 0; j < 10; j++)
             {
-                Vector3Int pos3 = new Vector3Int(startx + i + 1, starty - j,0);
-                if(i <=2 && j == 3)
+                Vector3Int pos3 = new Vector3Int(startx + i + 1, starty - j, 0);
+                if ((i <= 2 && j == 3) || (i <= 5 && j == 6) || (i == 2 && j <= 3) || (i == 5 && j <= 6))
                 {
                     addTile(1, pos3);
+                }else if ((i == 8) || (j==9))
+                {
+                    addTile(2,pos3);
+                }
+                else
+                {
+                    addTile(0, pos3);
                 }
             }
         }
