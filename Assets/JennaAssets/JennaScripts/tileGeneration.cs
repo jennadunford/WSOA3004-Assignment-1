@@ -248,4 +248,6 @@ public class tileGeneration : MonoBehaviour
     {
         tileMap.SetTile(position, tiles[tileNum]);
     }
+
+
 }
