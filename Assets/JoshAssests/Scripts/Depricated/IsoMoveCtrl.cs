@@ -7,7 +7,7 @@ public class IsoMoveCtrl : MonoBehaviour
 {
     [SerializeField] protected Grid grid;
     private Rigidbody2D rb;
-    [SerializeField] private float moveSpeed, xBaseSpeed, yBaseSpeed, normalizedSpeed;
+    [SerializeField] private float xMoveSpeed, yMoveSpeed, xBaseSpeed, yBaseSpeed, normalizedSpeed;
     [SerializeField] bool moveX = true, moveY = true, normalizeFinalMove;
 
 
@@ -58,7 +58,7 @@ public class IsoMoveCtrl : MonoBehaviour
         float input = 0f;
         if (moveX)
         {
-            input = Input.GetAxis(xAxis) * moveSpeed;
+            input = Input.GetAxis(xAxis) * xMoveSpeed;
         }
         return (input + xBaseSpeed) * IsoX;
     }
@@ -67,7 +67,7 @@ public class IsoMoveCtrl : MonoBehaviour
         float input = 0f;
         if (moveY)
         {
-            input = Input.GetAxis(yAxis) * moveSpeed;
+            input = Input.GetAxis(yAxis) * yMoveSpeed;
         }
         return (input + yBaseSpeed) * IsoY;
     }
