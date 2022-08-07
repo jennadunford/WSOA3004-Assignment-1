@@ -197,34 +197,7 @@ public class tileGeneration : MonoBehaviour
             pos = new Vector3Int((startx + x + 1), (starty - 8), 0);
             addTile(0, pos);
         }
-        for (int i = 0; i < 10; i++)
-        {
-            for (int j = 0; j < length; j++)
-            {
-                Vector3Int pos = new Vector3Int((startx + i), (starty - j), 0);
-                //if (i == 0 && j>=)
-                //switch (i)
-                //{
-                //    case 0:
-                //        addTile(2, pos);
-                //        lastSpawnCoord = pos;
-                //        break;
-                //    case 3:
-                //        addTile(1, pos);
-                //        break;
-                //    case 6:
-                //        addTile(1, pos);
-                //        break;
-                //    case 9:
-                //        addTile(2, pos);
-                //        break;
-                //    default:
-                //        addTile(0, pos);
-                //        break;
-                //}
-            }
 
-        }
 
       
     }
