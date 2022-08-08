@@ -8,6 +8,7 @@ public class tileGeneration2 : MonoBehaviour
     public Tile[] tiles;
 
     public Tilemap tileMap;
+    public Tilemap obstacleMap;
 
     public Vector3Int lastSpawnCoord;
 
@@ -25,6 +26,7 @@ public class tileGeneration2 : MonoBehaviour
     //5: rightleft
     //6: rightSideHalf
     //7: leftSideHalf
+    //8: obstacle
     // Start is called before the first frame update
     void Start()
     {
@@ -36,22 +38,6 @@ public class tileGeneration2 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-
-        //if (makeNew)
-        //{
-        //    createTurnRight(lastSpawnCoord.x, lastSpawnCoord.y);
-
-        //}
-        //if (makeNew2)
-        //{
-        //    createStraightRight(lastSpawnCoord.x, lastSpawnCoord.y, Random.Range(3, 20));
-        //    createTurnRightToStraight(lastSpawnCoord.x, lastSpawnCoord.y);
-        //    bool f = false;
-        //    createStraight(lastSpawnCoord.x, lastSpawnCoord.y, Random.Range(3, 20), f);
-        //    makeNew2 = false;
-        //}
-
 
     }
 
@@ -72,7 +58,7 @@ public class tileGeneration2 : MonoBehaviour
             Vector3Int pos4 = new Vector3Int(startx - 1, starty, 0);
             addTile(3, pos4);
         }
-        for (int x = 0; x < length; x++)
+        for (int x = 0; x < length-1; x++)
         {
             Vector3Int pos = new Vector3Int((startx - 1), (starty + x + 1), 0);
             addTile(3, pos);
