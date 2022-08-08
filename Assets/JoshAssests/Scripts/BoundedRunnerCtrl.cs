@@ -5,7 +5,7 @@ using UnityEngine;
 public class BoundedRunnerCtrl : MonoBehaviour
 {
     [SerializeField] PlayerBounds bounds;
-    [SerializeField] private float forwardSpeed = 1f, shiftForce = 1f, outDrag = 1f, maxOutSpeed, outSpin = 10f;
+    [SerializeField] private float forwardSpeed = 1f, shiftForce = 1f, maxShiftSpeed = 1000f, outDrag = 1f, maxOutSpeed, outSpin = 10f;
     [SerializeField] string shiftAxis = "Horizontal";
 
     private bool ready = true;
@@ -34,7 +34,13 @@ public class BoundedRunnerCtrl : MonoBehaviour
         if (IsRunning)
         {
             rb.AddForce(Input.GetAxis(shiftAxis) * bounds.GetInputCorrection() * shiftForce * bounds.Axese.rowVect);
-            rb.velocity = bounds.Axese.RowComponentVect(rb.velocity) + bounds.Axese.colVect * forwardSpeed;
+            Vector2 shiftComp = bounds.Axese.RowComponentVect(rb.velocity);
+            if(shiftComp.magnitude >= maxShiftSpeed)
+            {
+                shiftComp = maxShiftSpeed * shiftComp.normalized;
+            }
+            Vector2 forwardComp = bounds.Axese.colVect * forwardSpeed;
+            rb.velocity = shiftComp + forwardComp;
             bounds.CheckBounds();
         }
         else if (outOfBound && bounds.Axese.ColComponent(rb.velocity) > -maxOutSpeed)

@@ -1593,7 +1593,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bounds: {fileID: 1136517928}
   forwardSpeed: 3
-  shiftForce: 3
+  shiftForce: 2
+  maxShiftSpeed: 5
   outDrag: 15
   maxOutSpeed: 3
   outSpin: 250
