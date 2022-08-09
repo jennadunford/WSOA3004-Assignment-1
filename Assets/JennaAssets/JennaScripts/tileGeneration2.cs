@@ -84,6 +84,7 @@ public class tileGeneration2 : MonoBehaviour
             }
 
         }
+        //OBSTACLE GENERATION FOR STRAIGHT 
         int rand = Random.Range(0, 4);
         switch (rand)
         {
@@ -122,7 +123,15 @@ public class tileGeneration2 : MonoBehaviour
                 {
                     for (int j = 0; j < length-2; j++)
                     {
-                        Vector3Int posObj = new Vector3Int(startx + 4 + i, starty + 2 + j, 0);
+                        Vector3Int posObj = new Vector3Int(startx + 1 + i, starty + 2 + j, 0);
+                        addObst(8, posObj);
+                    }
+                }
+                for (int i = 0; i < 2; i++)
+                {
+                    for (int j = 0; j < length - 2; j++)
+                    {
+                        Vector3Int posObj = new Vector3Int(startx + 7 + i, starty + 2 + j, 0);
                         addObst(8, posObj);
                     }
                 }
@@ -222,7 +231,10 @@ public class tileGeneration2 : MonoBehaviour
             pos = new Vector3Int((startx + x + 1), (starty - 8), 0);
             addTile(0, pos);
         }
+
+        //OBSTACLE GENERATION FOR RIGHT STRAIGHT (AFTER RIGHT TURNS)
         int rand = Random.Range(0, 4);
+        
        
         switch (rand)
         {
@@ -262,6 +274,15 @@ public class tileGeneration2 : MonoBehaviour
                     for (int j = 0; j < length; j++)
                     {
                         Vector3Int posObj = new Vector3Int(startx + 2 + j, starty -2 + i, 0);
+                        addObst(8, posObj);
+                    }
+
+                }
+                for (int i = 0; i < 2; i++)
+                {
+                    for (int j = 0; j < length; j++)
+                    {
+                        Vector3Int posObj = new Vector3Int(startx + 2 + j, starty - 8 + i, 0);
                         addObst(8, posObj);
                     }
                 }
