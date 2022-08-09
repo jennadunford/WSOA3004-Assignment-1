@@ -52,6 +52,7 @@ public class TileGen : MonoBehaviour
     {
         if (beginning)
         {
+            length = 20;
             Vector3Int pos = new Vector3Int((startx - 1), (starty - 1), 0);
             addTile(5, pos);
             for (int x = 0; x < 9; x++)

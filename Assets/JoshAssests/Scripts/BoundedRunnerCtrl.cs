@@ -8,6 +8,7 @@ public class BoundedRunnerCtrl : MonoBehaviour
     [SerializeField] PlayerBounds bounds;
     [SerializeField] private float forwardSpeed = 1f, shiftForce = 1f, maxShiftSpeed = 1000f, outDrag = 1f, maxOutSpeed, outSpin = 10f;
     [SerializeField] string shiftAxis = "Horizontal", secondAxis = "Vertical";
+    [SerializeField] bool runOnStart = true;
 
     private bool ready = true;
     public bool IsRunning { get; private set; } = false;
@@ -54,7 +55,7 @@ public class BoundedRunnerCtrl : MonoBehaviour
         }
         else if(ready)
         {
-            if (Input.anyKeyDown)
+            if (Input.anyKeyDown || runOnStart)
             {
                 ready = false;
                 StartRunning();
