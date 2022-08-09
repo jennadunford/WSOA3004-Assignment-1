@@ -1,22 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class BoundedRunnerCtrl : MonoBehaviour
 {
     [SerializeField] PlayerBounds bounds;
     [SerializeField] private float forwardSpeed = 1f, shiftForce = 1f, maxShiftSpeed = 1000f, outDrag = 1f, maxOutSpeed, outSpin = 10f;
-    [SerializeField] string shiftAxis = "Horizontal", secondAxis = "Vertical";
-    [SerializeField] bool runOnStart = true;
+    [SerializeField] string shiftAxis = "Horizontal";
 
     private bool ready = true;
     public bool IsRunning { get; private set; } = false;
     private bool outOfBound = false;
     private Rigidbody2D rb;
     private CollisonId colId;
-
-    public UnityEvent OnGameStart;
 
     private void Start()
     {
@@ -38,7 +34,7 @@ public class BoundedRunnerCtrl : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space)) { bounds.SwapDirection(); }
         if (IsRunning)
         {
-            rb.AddForce(GetShiftInput() * shiftForce * bounds.Axese.rowVect);
+            rb.AddForce(Input.GetAxis(shiftAxis) * bounds.GetInputCorrection() * shiftForce * bounds.Axese.rowVect);
             Vector2 shiftComp = bounds.Axese.RowComponentVect(rb.velocity);
             if(shiftComp.magnitude >= maxShiftSpeed)
             {
@@ -55,7 +51,7 @@ public class BoundedRunnerCtrl : MonoBehaviour
         }
         else if(ready)
         {
-            if (Input.anyKeyDown || runOnStart)
+            if (Input.anyKeyDown)
             {
                 ready = false;
                 StartRunning();
@@ -90,16 +86,5 @@ public class BoundedRunnerCtrl : MonoBehaviour
     public void StartRunning()
     {
         IsRunning = true;
-        OnGameStart?.Invoke();
-    }
-
-    private float GetShiftInput()
-    {
-        float input = Input.GetAxis(shiftAxis) * bounds.GetInputCorrection();
-        if(input == 0)
-        {
-            input = Input.GetAxis(secondAxis);
-        }
-        return input;
     }
 }
