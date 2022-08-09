@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class BoundedRunnerCtrl : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class BoundedRunnerCtrl : MonoBehaviour
     private bool outOfBound = false;
     private Rigidbody2D rb;
     private CollisonId colId;
+
+    public UnityEvent OnGameStart;
 
     private void Start()
     {
@@ -86,5 +89,6 @@ public class BoundedRunnerCtrl : MonoBehaviour
     public void StartRunning()
     {
         IsRunning = true;
+        OnGameStart?.Invoke();
     }
 }
