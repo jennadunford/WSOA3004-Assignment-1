@@ -21,7 +21,7 @@ public class FlipTurtle : MonoBehaviour
         CheckFlip();
     }
 
-    private void CheckFlip()
+    public void CheckFlip()
     {
         sr.flipY = bounds.GetDirection() == PlayerBounds.LaneDirection.Left;
     }

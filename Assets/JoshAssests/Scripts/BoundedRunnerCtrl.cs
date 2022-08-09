@@ -7,7 +7,7 @@ public class BoundedRunnerCtrl : MonoBehaviour
 {
     [SerializeField] PlayerBounds bounds;
     [SerializeField] private float forwardSpeed = 1f, shiftForce = 1f, maxShiftSpeed = 1000f, outDrag = 1f, maxOutSpeed, outSpin = 10f;
-    [SerializeField] string shiftAxis = "Horizontal";
+    [SerializeField] string shiftAxis = "Horizontal", secondAxis = "Vertical";
 
     private bool ready = true;
     public bool IsRunning { get; private set; } = false;
@@ -37,7 +37,7 @@ public class BoundedRunnerCtrl : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space)) { bounds.SwapDirection(); }
         if (IsRunning)
         {
-            rb.AddForce(Input.GetAxis(shiftAxis) * bounds.GetInputCorrection() * shiftForce * bounds.Axese.rowVect);
+            rb.AddForce(GetShiftInput() * shiftForce * bounds.Axese.rowVect);
             Vector2 shiftComp = bounds.Axese.RowComponentVect(rb.velocity);
             if(shiftComp.magnitude >= maxShiftSpeed)
             {
@@ -90,5 +90,15 @@ public class BoundedRunnerCtrl : MonoBehaviour
     {
         IsRunning = true;
         OnGameStart?.Invoke();
+    }
+
+    private float GetShiftInput()
+    {
+        float input = Input.GetAxis(shiftAxis) * bounds.GetInputCorrection();
+        if(input == 0)
+        {
+            input = Input.GetAxis(secondAxis);
+        }
+        return input;
     }
 }
