@@ -5,11 +5,24 @@ using UnityEngine.UI;
 
 public class PlayerScore : MonoBehaviour
 {
-    public Transform player;
-    public Text scoreText;
+    public Text timerText;
+    public Text highScoreText;
+    public static int scoreCounter = 0;
+    public static int highScoreCount = 0;
+    public static float rawTime = 0;
 
+    public static bool gameEnd = false;
+
+    // Update is called once per frame
     void Update()
     {
-        scoreText.text = player.position.y.ToString("0");
+        if (!gameEnd)
+        {
+            //rawTime += Time.deltaTime;
+            //scoreCounter = ((int)rawTime) * 10;
+            scoreCounter += (int)(Mathf.Ceil(Time.deltaTime));
+            timerText.text = scoreCounter.ToString();
+            highScoreText.text = highScoreCount.ToString();
+        }
     }
 }
