@@ -7,6 +7,7 @@ public class BoundedRunnerCtrl : MonoBehaviour
     [SerializeField] PlayerBounds bounds;
     [SerializeField] private float forwardSpeed = 1f, shiftForce = 1f, maxShiftSpeed = 1000f, outDrag = 1f, maxOutSpeed, outSpin = 10f;
     [SerializeField] string shiftAxis = "Horizontal";
+    [SerializeField] string shiftAxis = "Horizontal", secondAxis = "Vertical";
 
     private bool ready = true;
     public bool IsRunning { get; private set; } = false;
