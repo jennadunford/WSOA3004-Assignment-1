@@ -338,7 +338,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 8.5, y: -1034}
+  m_AnchoredPosition: {x: 8.5, y: -165}
   m_SizeDelta: {x: 1097.79, y: 1100.84}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &155959161
@@ -374,8 +374,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Name of game\n\nLevel design  by\n\nart design  by\n\nscript work  by
-    \n\nui design  by \n\nsound by\n\nTHANK YOU FOR PLAYING\n\n\n\n\n"
+  m_Text: "Name of game\n\nLevel design  by \n\n\nart design  by\n\nscript work 
+    by \n\nui design  by \n\nsound by\n\nTHANK YOU FOR PLAYING\n\n\n\n\n"
 --- !u!222 &155959162
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2029,7 +2029,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1704066654
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2066,7 +2066,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1747835862
 RectTransform:
   m_ObjectHideFlags: 0
