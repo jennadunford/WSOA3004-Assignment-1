@@ -6,6 +6,7 @@ TagManager:
   tags:
   - obsticle
   - action
+  - obstacle
   layers:
   - Default
   - TransparentFX
