@@ -35,12 +35,6 @@ public class tileGeneration2 : MonoBehaviour
         InvokeRepeating("endlessGeneration", 1, 5);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     public void createStraight(int startx, int starty, int length, bool beginning)
     {
 
@@ -90,9 +84,51 @@ public class tileGeneration2 : MonoBehaviour
             }
 
         }
-
+        int rand = Random.Range(0, 4);
+        switch (rand)
+        {
+            case 0:
+                for(int i = 0; i < 2; i++)
+                {
+                    for(int j = 0; j < length-2; j++)
+                    {
+                        Vector3Int posObj = new Vector3Int(startx + 1 + i, starty + 2 + j, 0);
+                        addObst(8, posObj);
+                    }
+                }
+                break;
+            case 1:
+                for (int i = 0; i < 2; i++)
+                {
+                    for (int j = 0; j < length-2; j++)
+                    {
+                        Vector3Int posObj = new Vector3Int(startx + 4 + i, starty + 2 + j, 0);
+                        addObst(8, posObj);
+                    }
+                }
+                break;
+            case 2:
+                for (int i = 0; i < 2; i++)
+                {
+                    for (int j = 0; j < length-2; j++)
+                    {
+                        Vector3Int posObj = new Vector3Int(startx + 7 + i, starty + 2 + j, 0);
+                        addObst(8, posObj);
+                    }
+                }
+                break;
+            case 3:
+                for (int i = 0; i < 2; i++)
+                {
+                    for (int j = 0; j < length-2; j++)
+                    {
+                        Vector3Int posObj = new Vector3Int(startx + 4 + i, starty + 2 + j, 0);
+                        addObst(8, posObj);
+                    }
+                }
+                break;
+        }
         makeNew = true;
-
     }
 
     public void createTurnRight(int startx, int starty)
@@ -157,7 +193,6 @@ public class tileGeneration2 : MonoBehaviour
         makeNew = false;
         makeNew2 = true;
     }
-
     public void createStraightRight(int startx, int starty, int length)
     {
 
@@ -186,6 +221,51 @@ public class tileGeneration2 : MonoBehaviour
             addTile(0, pos);
             pos = new Vector3Int((startx + x + 1), (starty - 8), 0);
             addTile(0, pos);
+        }
+        int rand = Random.Range(0, 4);
+       
+        switch (rand)
+        {
+            case 0:
+                for (int i = 0; i < 2; i++)
+                {
+                    for (int j = 0; j < length; j++)
+                    {
+                        Vector3Int posObj = new Vector3Int(startx + 1 + j, starty -2 + i, 0);
+                        addObst(8, posObj);
+                    }
+                }
+                break;
+            case 1:
+                for (int i = 0; i < 2; i++)
+                {
+                    for (int j = 0; j < length; j++)
+                    {
+                        Vector3Int posObj = new Vector3Int(startx + 2 + j, starty -5 + i, 0);
+                        addObst(8, posObj);
+                    }
+                }
+                break;
+            case 2:
+                for (int i = 0; i < 2; i++)
+                {
+                    for (int j = 0; j < length; j++)
+                    {
+                        Vector3Int posObj = new Vector3Int(startx + 2 + j, starty -8 + i, 0);
+                        addObst(8, posObj);
+                    }
+                }
+                break;
+            case 3:
+                for (int i = 0; i < 2; i++)
+                {
+                    for (int j = 0; j < length; j++)
+                    {
+                        Vector3Int posObj = new Vector3Int(startx + 2 + j, starty -2 + i, 0);
+                        addObst(8, posObj);
+                    }
+                }
+                break;
         }
 
 
@@ -224,15 +304,7 @@ public class tileGeneration2 : MonoBehaviour
     }
 
 
-    public void createTurnLeft(int startx, int starty, int length)
-    {
 
-    }
-
-    public void createStraightLeft(int startx, int starty, int length)
-    {
-
-    }
 
 
     public void addTile(int tileNum, Vector3Int position)
@@ -240,6 +312,10 @@ public class tileGeneration2 : MonoBehaviour
         tileMap.SetTile(position, tiles[tileNum]);
     }
 
+    public void addObst(int tileNum, Vector3Int position)
+    {
+        obstacleMap.SetTile(position, tiles[tileNum]);
+    }
     public void endlessGeneration()
     {
         if (makeNew)
