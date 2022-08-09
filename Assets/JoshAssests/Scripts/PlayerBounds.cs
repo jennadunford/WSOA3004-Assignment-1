@@ -30,17 +30,12 @@ public class PlayerBounds : MonoBehaviour
     {
         SetDirection(laneDirection);
     }
-    private void FixedUpdate()
-    {
-
-    }
     // === Player setup ===
     public void SetPlayer(Rigidbody2D playerRb)
     {
         PlayerRb = playerRb;
         AllignPlayer();
     }
-
 
     // === Axis setup ===
     public void SetDirection(LaneDirection dir)
@@ -61,10 +56,22 @@ public class PlayerBounds : MonoBehaviour
         OnDirectionChange?.Invoke(Axese);
     }
 
+    public void SetDirection(int laneX, int laneY, LaneDirection dir)
+    {
+        DefineBounds(laneX, laneY);
+        SetDirection(dir);
+    }
+
+    public void SwapDirection()
+    {
+        Vector3Int pos = grid.WorldToCell(PlayerRb.position);
+        SwapDirection(pos.x, pos.y);
+    }
     public void SwapDirection(int laneX, int laneY)
     {
-        startX = laneX;
-        startY = laneY;
+        // Redfine lane bounds
+        DefineBounds(laneX, laneY);
+
         if (laneDirection == LaneDirection.Right)
         {
             SetDirection(LaneDirection.Left);
@@ -73,12 +80,14 @@ public class PlayerBounds : MonoBehaviour
         {
             SetDirection(LaneDirection.Right);
         }
+    }
 
-
-        // Redfine lane bounds
+    private void DefineBounds(int laneX, int laneY)
+    {
+        startX = laneX;
+        startY = laneY;
         StartPos = CellToTile(startX, startY);
         SetBounds(StartPos);
-
     }
 
     // returns and isometric 'unit' vector for x grid rows

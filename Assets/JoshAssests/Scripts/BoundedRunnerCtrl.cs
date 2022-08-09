@@ -31,6 +31,7 @@ public class BoundedRunnerCtrl : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (Input.GetKeyDown(KeyCode.Space)) { bounds.SwapDirection(); }
         if (IsRunning)
         {
             rb.AddForce(Input.GetAxis(shiftAxis) * bounds.GetInputCorrection() * shiftForce * bounds.Axese.rowVect);

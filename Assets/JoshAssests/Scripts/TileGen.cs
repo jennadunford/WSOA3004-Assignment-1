@@ -9,8 +9,14 @@ public class TileGen : MonoBehaviour
 
     public Tilemap tileMap;
     public Tilemap obstacleMap;
+    public Tilemap dirSwapMap;
 
+    private DirectionChangeManager dirMan;
+
+    [SerializeField] int width = 9;
     [SerializeField] int maxStraigth = 30, minStright = 5;
+    [SerializeField] int obsticleGap = 4;
+    private int obsticleCount;
 
     public Vector3Int lastSpawnCoord;
 
@@ -32,14 +38,16 @@ public class TileGen : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        dirMan = dirSwapMap.GetComponent<DirectionChangeManager>();
+
         bool start = true;
-        createStraight(0, 0, Random.Range(5, 20), start);
+        CreateStraight(0, 0, Random.Range(minStright, maxStraigth), start);
         InvokeRepeating("endlessGeneration", 1, 5);
     }
 
-    public void createStraight(int startx, int starty, int length, bool beginning)
+    public void CreateStraight(int startx, int starty, int length, bool beginning)
     {
-
+        obsticleCount = 0;
         if (beginning)
         {
             Vector3Int pos = new Vector3Int((startx - 1), (starty - 1), 0);
@@ -59,9 +67,9 @@ public class TileGen : MonoBehaviour
             Vector3Int pos = new Vector3Int((startx - 1), (starty + x + 1), 0);
             addTile(3, pos);
         }
-        for (int i = 0; i < 10; i++)
+        for (int j = 0; j < length; j++)
         {
-            for (int j = 0; j < length; j++)
+            for (int i = 0; i <= width; i++)
             {
                 Vector3Int pos = new Vector3Int((startx + i), (starty + j), 0);
                 switch (i)
@@ -83,11 +91,15 @@ public class TileGen : MonoBehaviour
                         addTile(0, pos);
                         break;
                 }
+                if (!beginning && j % obsticleGap == 0)
+                {
+                    //addObst(8, pos);
+                }
             }
-
+            
         }
         //OBSTACLE GENERATION FOR STRAIGHT 
-        int rand = Random.Range(0, 4);
+       /* int rand = Random.Range(0, 4);
         switch (rand)
         {
             case 0:
@@ -138,19 +150,21 @@ public class TileGen : MonoBehaviour
                     }
                 }
                 break;
-        }
+        }*/
         makeNew = true;
     }
 
     public void createTurnRight(int startx, int starty)
     {
-        for (int x = 0; x < 10; x++)
+        for (int x = 0; x <= width; x++)
         {
             Vector3Int pos = new Vector3Int((startx - 1), (starty + x), 0);
             addTile(3, pos);
         }
         Vector3Int pos2 = new Vector3Int((startx - 1), (starty + 10), 0);
         addTile(7, pos2);
+
+        dirMan.AddDirChange(pos2.x, pos2.y - (width/2 + 1), PlayerBounds.LaneDirection.Right);
 
         for (int i = 0; i < 10; i++)
         {
@@ -196,6 +210,12 @@ public class TileGen : MonoBehaviour
                 else
                 {
                     addTile(0, pos);
+                }
+
+                // Add corner postion swapper
+                if(i == j)
+                {
+                   AddDirectionSwap(8, pos);
                 }
 
 
@@ -295,7 +315,7 @@ public class TileGen : MonoBehaviour
 
     }
 
-    public void createTurnRightToStraight(int startx, int starty)
+    public void createTurnLeft(int startx, int starty)
     {
         for (int x = 0; x < 9; x++)
         {
@@ -304,6 +324,7 @@ public class TileGen : MonoBehaviour
         }
         Vector3Int pos2 = new Vector3Int((startx + 9), (starty - 10), 0);
         addTile(6, pos2);
+        dirMan.AddDirChange(pos2.x - width / 2, pos2.y, PlayerBounds.LaneDirection.Left);
         for (int i = 0; i < 9; i++)
         {
             for (int j = 0; j < 10; j++)
@@ -320,6 +341,11 @@ public class TileGen : MonoBehaviour
                 else
                 {
                     addTile(0, pos3);
+                }
+
+                if (i == j)
+                {
+                    AddDirectionSwap(8, pos3);
                 }
             }
         }
@@ -339,6 +365,11 @@ public class TileGen : MonoBehaviour
     {
         obstacleMap.SetTile(position, tiles[tileNum]);
     }
+
+    public void AddDirectionSwap(int tileNum, Vector3Int position)
+    {
+        dirSwapMap.SetTile(position, tiles[tileNum]);
+    }
     public void endlessGeneration()
     {
         if (makeNew)
@@ -349,9 +380,8 @@ public class TileGen : MonoBehaviour
         if (makeNew2)
         {
             createStraightRight(lastSpawnCoord.x, lastSpawnCoord.y, Random.Range(3, 20));
-            createTurnRightToStraight(lastSpawnCoord.x, lastSpawnCoord.y);
-            bool f = false;
-            createStraight(lastSpawnCoord.x, lastSpawnCoord.y, Random.Range(3, 20), f);
+            createTurnLeft(lastSpawnCoord.x, lastSpawnCoord.y);
+            CreateStraight(lastSpawnCoord.x, lastSpawnCoord.y, Random.Range(3, 20), false);
             makeNew2 = false;
         }
     }
