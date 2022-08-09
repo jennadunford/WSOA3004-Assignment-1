@@ -6,10 +6,12 @@ using UnityEngine.Tilemaps;
 public class TileGen : MonoBehaviour
 {
     public Tile[] tiles;
+    public Tile[] sharks;
 
     public Tilemap tileMap;
     public Tilemap obstacleMap;
     public Tilemap dirSwapMap;
+    public Tilemap sharkMap;
 
     private DirectionChangeManager dirMan;
 
@@ -23,6 +25,8 @@ public class TileGen : MonoBehaviour
 
     public bool makeNew = false;
     public bool makeNew2 = false;
+
+    const int sharkOffset = 4;
 
     int y = 0;
     //0: middleNormal
@@ -105,53 +109,55 @@ public class TileGen : MonoBehaviour
         switch (rand)
         {
             case 0:
-                for (int i = 0; i < obstWidth; i++)
-                {
-                    for (int j = 0; j < obstLength; j++)
-                    {
-                        Vector3Int posObj = new Vector3Int(refPos.x + 1 + i, refPos.y + 2 + j, 0);
-                        addObst(8, posObj);
-                    }
-                }
+                SharkLeftLane1(refPos);
                 break;
             case 1:
-                for (int i = 0; i < obstWidth; i++)
-                {
-                    for (int j = 0; j < obstLength; j++)
-                    {
-                        Vector3Int posObj = new Vector3Int(refPos.x + 4 + i, refPos.y + 2 + j, 0);
-                        addObst(8, posObj);
-                    }
-                }
+                SharkLeftLane2(refPos);
                 break;
             case 2:
-                for (int i = 0; i < obstWidth; i++)
-                {
-                    for (int j = 0; j < obstLength; j++)
-                    {
-                        Vector3Int posObj = new Vector3Int(refPos.x + 7 + i, refPos.y + 2 + j, 0);
-                        addObst(8, posObj);
-                    }
-                }
+                SharkLeftLane3(refPos);
                 break;
             case 3:
-                for (int i = 0; i < obstWidth; i++)
-                {
-                    for (int j = 0; j < obstLength; j++)
-                    {
-                        Vector3Int posObj = new Vector3Int(refPos.x + 1 + i, refPos.y + 2 + j, 0);
-                        addObst(8, posObj);
-                    }
-                }
-                for (int i = 0; i < obstWidth; i++)
-                {
-                    for (int j = 0; j < obstLength; j++)
-                    {
-                        Vector3Int posObj = new Vector3Int(refPos.x + 7 + i, refPos.y + 2 + j, 0);
-                        addObst(8, posObj);
-                    }
-                }
+                SharkLeftLane1(refPos);
+                SharkLeftLane3(refPos);
                 break;
+        }
+    }
+
+    private void SharkLeftLane1(Vector2Int refPos)
+    {
+        AddShark(new Vector3Int(refPos.x + 3, refPos.y + sharkOffset, 0));
+        for (int i = 0; i < obstWidth; i++)
+        {
+            for (int j = 0; j < obstLength; j++)
+            {
+                Vector3Int posObj = new Vector3Int(refPos.x + 1 + i, refPos.y + 2 + j, 0);
+                addObst(8, posObj);
+            }
+        }
+    }
+    private void SharkLeftLane2(Vector2Int refPos)
+    {
+        AddShark(new Vector3Int(refPos.x + 6, refPos.y + sharkOffset, 0));
+        for (int i = 0; i < obstWidth; i++)
+        {
+            for (int j = 0; j < obstLength; j++)
+            {
+                Vector3Int posObj = new Vector3Int(refPos.x + 4 + i, refPos.y + 2 + j, 0);
+                addObst(8, posObj);
+            }
+        }
+    }
+    private void SharkLeftLane3(Vector2Int refPos)
+    {
+        AddShark(new Vector3Int(refPos.x + 9, refPos.y + sharkOffset, 0));
+        for (int i = 0; i < obstWidth; i++)
+        {
+            for (int j = 0; j < obstLength; j++)
+            {
+                Vector3Int posObj = new Vector3Int(refPos.x + 7 + i, refPos.y + 2 + j, 0);
+                addObst(8, posObj);
+            }
         }
     }
 
@@ -263,60 +269,69 @@ public class TileGen : MonoBehaviour
     private void AddObstRowRight(Vector2Int refPos)
     {
         //OBSTACLE GENERATION FOR RIGHT STRAIGHT (AFTER RIGHT TURNS)
-        int rand = Random.Range(0, 4);
-
+        int rand = Random.Range(0, 6);
 
         switch (rand)
         {
             case 0:
-                for (int i = 0; i < obstWidth; i++)
-                {
-                    for (int j = 0; j < obstLength; j++)
-                    {
-                        Vector3Int posObj = new Vector3Int(refPos.x + 1 + j, refPos.y - 2 + i, 0);
-                        addObst(8, posObj);
-                    }
-                }
+                SharkRightLane1(refPos);
                 break;
             case 1:
-                for (int i = 0; i < obstWidth; i++)
-                {
-                    for (int j = 0; j < obstLength; j++)
-                    {
-                        Vector3Int posObj = new Vector3Int(refPos.x + 2 + j, refPos.y - 5 + i, 0);
-                        addObst(8, posObj);
-                    }
-                }
+                SharkRightLane2(refPos);
                 break;
             case 2:
-                for (int i = 0; i < 2; i++)
-                {
-                    for (int j = 0; j < obstLength; j++)
-                    {
-                        Vector3Int posObj = new Vector3Int(refPos.x + 2 + j, refPos.y - 8 + i, 0);
-                        addObst(8, posObj);
-                    }
-                }
+                SharkRightLane3(refPos);
                 break;
             case 3:
-                for (int i = 0; i < 2; i++)
-                {
-                    for (int j = 0; j < obstLength; j++)
-                    {
-                        Vector3Int posObj = new Vector3Int(refPos.x + 2 + j, refPos.y - 2 + i, 0);
-                        addObst(8, posObj);
-                    }
-
-                }
-                for (int i = 0; i < 2; i++)
-                {
-                    for (int j = 0; j < obstLength; j++)
-                    {
-                        Vector3Int posObj = new Vector3Int(refPos.x + 2 + j, refPos.y - 8 + i, 0);
-                        addObst(8, posObj);
-                    }
-                }
+                SharkRightLane1(refPos);
+                SharkRightLane3(refPos);
                 break;
+            case 4:
+                SharkRightLane1(refPos);
+                SharkRightLane2(refPos);
+                break;
+            case 5:
+                SharkRightLane2(refPos);
+                SharkRightLane3(refPos);
+                break;
+        }
+    }
+
+    public void SharkRightLane1(Vector2Int refPos)
+    {
+        AddShark(new Vector3Int(refPos.x + sharkOffset, refPos.y, 0));
+        // add colliders
+        for (int i = 0; i < obstWidth; i++)
+        {
+            for (int j = 0; j < obstLength; j++)
+            {
+                Vector3Int posObj = new Vector3Int(refPos.x + 2 + j, refPos.y - 2 + i, 0);
+                addObst(8, posObj);
+            }
+        }
+    }
+    public void SharkRightLane2(Vector2Int refPos)
+    {
+        AddShark(new Vector3Int(refPos.x + sharkOffset, refPos.y - 3, 0));
+        for (int i = 0; i < obstWidth; i++)
+        {
+            for (int j = 0; j < obstLength; j++)
+            {
+                Vector3Int posObj = new Vector3Int(refPos.x + 2 + j, refPos.y - 5 + i, 0);
+                addObst(8, posObj);
+            }
+        }
+    }
+    public void SharkRightLane3(Vector2Int refPos)
+    {
+        AddShark(new Vector3Int(refPos.x + sharkOffset, refPos.y - 6, 0));
+        for (int i = 0; i < 2; i++)
+        {
+            for (int j = 0; j < obstLength; j++)
+            {
+                Vector3Int posObj = new Vector3Int(refPos.x + 2 + j, refPos.y - 8 + i, 0);
+                addObst(8, posObj);
+            }
         }
     }
 
@@ -369,6 +384,12 @@ public class TileGen : MonoBehaviour
     public void addObst(int tileNum, Vector3Int position)
     {
         obstacleMap.SetTile(position, tiles[tileNum]);
+    }
+    public void AddShark(Vector3Int position)
+    {
+        int rand = Random.Range(0, sharks.Length);
+        Tile sharkTile = sharks[rand];
+        sharkMap.SetTile(position, sharkTile);
     }
 
     public void AddDirectionSwap(int tileNum, Vector3Int position)
