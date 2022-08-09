@@ -42,11 +42,11 @@ public class DirectionChangeManager : DirectionChange
                 directionChanges.Dequeue();
                 Set(currChange.x, currChange.y);
                 base.Interact(playerBounds);
-
-                // reset cooldown
-                cd = 0;
             }
         }
+
+        // reset cooldown
+        cd = 0;
     }
 
 }

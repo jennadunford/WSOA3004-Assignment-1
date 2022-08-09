@@ -15,8 +15,7 @@ public class TileGen : MonoBehaviour
 
     [SerializeField] int width = 9;
     [SerializeField] int maxStraigth = 30, minStright = 5;
-    [SerializeField] int obsticleGap = 4;
-    private int obsticleCount;
+    [SerializeField] int obstGap = 12, obstWidth = 2, obstLength = 2;
 
     public Vector3Int lastSpawnCoord;
 
@@ -47,7 +46,6 @@ public class TileGen : MonoBehaviour
 
     public void CreateStraight(int startx, int starty, int length, bool beginning)
     {
-        obsticleCount = 0;
         if (beginning)
         {
             Vector3Int pos = new Vector3Int((startx - 1), (starty - 1), 0);
@@ -69,6 +67,11 @@ public class TileGen : MonoBehaviour
         }
         for (int j = 0; j < length; j++)
         {
+            if (!beginning && j % obstGap == 0)
+            {
+                AddObstRowLeft(new Vector2Int(startx, starty+j));
+                //addObst(8, pos);
+            }
             for (int i = 0; i <= width; i++)
             {
                 Vector3Int pos = new Vector3Int((startx + i), (starty + j), 0);
@@ -91,67 +94,65 @@ public class TileGen : MonoBehaviour
                         addTile(0, pos);
                         break;
                 }
-                if (!beginning && j % obsticleGap == 0)
-                {
-                    //addObst(8, pos);
-                }
             }
-            
-        }
-        //OBSTACLE GENERATION FOR STRAIGHT 
-       /* int rand = Random.Range(0, 4);
+        }       
+        makeNew = true;
+    }
+
+    public void AddObstRowLeft(Vector2Int refPos)
+    {
+        int rand = Random.Range(0, 4);
         switch (rand)
         {
             case 0:
-                for (int i = 0; i < 2; i++)
+                for (int i = 0; i < obstWidth; i++)
                 {
-                    for (int j = 0; j < length - 2; j++)
+                    for (int j = 0; j < obstLength; j++)
                     {
-                        Vector3Int posObj = new Vector3Int(startx + 1 + i, starty + 2 + j, 0);
+                        Vector3Int posObj = new Vector3Int(refPos.x + 1 + i, refPos.y + 2 + j, 0);
                         addObst(8, posObj);
                     }
                 }
                 break;
             case 1:
-                for (int i = 0; i < 2; i++)
+                for (int i = 0; i < obstWidth; i++)
                 {
-                    for (int j = 0; j < length - 2; j++)
+                    for (int j = 0; j < obstLength; j++)
                     {
-                        Vector3Int posObj = new Vector3Int(startx + 4 + i, starty + 2 + j, 0);
+                        Vector3Int posObj = new Vector3Int(refPos.x + 4 + i, refPos.y + 2 + j, 0);
                         addObst(8, posObj);
                     }
                 }
                 break;
             case 2:
-                for (int i = 0; i < 2; i++)
+                for (int i = 0; i < obstWidth; i++)
                 {
-                    for (int j = 0; j < length - 2; j++)
+                    for (int j = 0; j < obstLength; j++)
                     {
-                        Vector3Int posObj = new Vector3Int(startx + 7 + i, starty + 2 + j, 0);
+                        Vector3Int posObj = new Vector3Int(refPos.x + 7 + i, refPos.y + 2 + j, 0);
                         addObst(8, posObj);
                     }
                 }
                 break;
             case 3:
-                for (int i = 0; i < 2; i++)
+                for (int i = 0; i < obstWidth; i++)
                 {
-                    for (int j = 0; j < length - 2; j++)
+                    for (int j = 0; j < obstLength; j++)
                     {
-                        Vector3Int posObj = new Vector3Int(startx + 1 + i, starty + 2 + j, 0);
+                        Vector3Int posObj = new Vector3Int(refPos.x + 1 + i, refPos.y + 2 + j, 0);
                         addObst(8, posObj);
                     }
                 }
-                for (int i = 0; i < 2; i++)
+                for (int i = 0; i < obstWidth; i++)
                 {
-                    for (int j = 0; j < length - 2; j++)
+                    for (int j = 0; j < obstLength; j++)
                     {
-                        Vector3Int posObj = new Vector3Int(startx + 7 + i, starty + 2 + j, 0);
+                        Vector3Int posObj = new Vector3Int(refPos.x + 7 + i, refPos.y + 2 + j, 0);
                         addObst(8, posObj);
                     }
                 }
                 break;
-        }*/
-        makeNew = true;
+        }
     }
 
     public void createTurnRight(int startx, int starty)
@@ -213,7 +214,7 @@ public class TileGen : MonoBehaviour
                 }
 
                 // Add corner postion swapper
-                if(i == j)
+                if(10-i == j-1)
                 {
                    AddDirectionSwap(8, pos);
                 }
@@ -229,6 +230,10 @@ public class TileGen : MonoBehaviour
 
         for (int x = 0; x < length; x++)
         {
+            if (x % obstGap == 0)
+            {
+                AddObstRowRight(new Vector2Int(startx + x, starty));
+            }
             Vector3Int pos = new Vector3Int((startx + x + 1), (starty - 10), 0);
             addTile(4, pos);
             pos = new Vector3Int((startx + x + 1), (starty - 9), 0);
@@ -253,7 +258,10 @@ public class TileGen : MonoBehaviour
             pos = new Vector3Int((startx + x + 1), (starty - 8), 0);
             addTile(0, pos);
         }
+    }
 
+    private void AddObstRowRight(Vector2Int refPos)
+    {
         //OBSTACLE GENERATION FOR RIGHT STRAIGHT (AFTER RIGHT TURNS)
         int rand = Random.Range(0, 4);
 
@@ -261,21 +269,21 @@ public class TileGen : MonoBehaviour
         switch (rand)
         {
             case 0:
-                for (int i = 0; i < 2; i++)
+                for (int i = 0; i < obstWidth; i++)
                 {
-                    for (int j = 0; j < length; j++)
+                    for (int j = 0; j < obstLength; j++)
                     {
-                        Vector3Int posObj = new Vector3Int(startx + 1 + j, starty - 2 + i, 0);
+                        Vector3Int posObj = new Vector3Int(refPos.x + 1 + j, refPos.y - 2 + i, 0);
                         addObst(8, posObj);
                     }
                 }
                 break;
             case 1:
-                for (int i = 0; i < 2; i++)
+                for (int i = 0; i < obstWidth; i++)
                 {
-                    for (int j = 0; j < length; j++)
+                    for (int j = 0; j < obstLength; j++)
                     {
-                        Vector3Int posObj = new Vector3Int(startx + 2 + j, starty - 5 + i, 0);
+                        Vector3Int posObj = new Vector3Int(refPos.x + 2 + j, refPos.y - 5 + i, 0);
                         addObst(8, posObj);
                     }
                 }
@@ -283,9 +291,9 @@ public class TileGen : MonoBehaviour
             case 2:
                 for (int i = 0; i < 2; i++)
                 {
-                    for (int j = 0; j < length; j++)
+                    for (int j = 0; j < obstLength; j++)
                     {
-                        Vector3Int posObj = new Vector3Int(startx + 2 + j, starty - 8 + i, 0);
+                        Vector3Int posObj = new Vector3Int(refPos.x + 2 + j, refPos.y - 8 + i, 0);
                         addObst(8, posObj);
                     }
                 }
@@ -293,26 +301,23 @@ public class TileGen : MonoBehaviour
             case 3:
                 for (int i = 0; i < 2; i++)
                 {
-                    for (int j = 0; j < length; j++)
+                    for (int j = 0; j < obstLength; j++)
                     {
-                        Vector3Int posObj = new Vector3Int(startx + 2 + j, starty - 2 + i, 0);
+                        Vector3Int posObj = new Vector3Int(refPos.x + 2 + j, refPos.y - 2 + i, 0);
                         addObst(8, posObj);
                     }
 
                 }
                 for (int i = 0; i < 2; i++)
                 {
-                    for (int j = 0; j < length; j++)
+                    for (int j = 0; j < obstLength; j++)
                     {
-                        Vector3Int posObj = new Vector3Int(startx + 2 + j, starty - 8 + i, 0);
+                        Vector3Int posObj = new Vector3Int(refPos.x + 2 + j, refPos.y - 8 + i, 0);
                         addObst(8, posObj);
                     }
                 }
                 break;
         }
-
-
-
     }
 
     public void createTurnLeft(int startx, int starty)
@@ -324,7 +329,7 @@ public class TileGen : MonoBehaviour
         }
         Vector3Int pos2 = new Vector3Int((startx + 9), (starty - 10), 0);
         addTile(6, pos2);
-        dirMan.AddDirChange(pos2.x - width / 2, pos2.y, PlayerBounds.LaneDirection.Left);
+        dirMan.AddDirChange(pos2.x - (width / 2) - 1, pos2.y, PlayerBounds.LaneDirection.Left);
         for (int i = 0; i < 9; i++)
         {
             for (int j = 0; j < 10; j++)
