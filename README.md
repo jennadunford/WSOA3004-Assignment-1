@@ -14,4 +14,7 @@
 - Found at: https://fonts.google.com/betterspecimen/Mouse+Memoirs?query=mouse+memoirs
 - License: Open Font License
 
+# Final Build Location
+- The Final Build for this project is located within the Final Build folder in the root of the repository.
+
 
