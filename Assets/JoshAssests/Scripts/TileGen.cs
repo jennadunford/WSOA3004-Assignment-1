@@ -28,7 +28,7 @@ public class TileGen : MonoBehaviour
 
     const int sharkOffset = 4;
 
-    int y = 0;
+    int prevRand = -1;
     //0: middleNormal
     //1: innerLane
     //2: outerLane
@@ -106,7 +106,12 @@ public class TileGen : MonoBehaviour
 
     public void AddObstRowLeft(Vector2Int refPos)
     {
-        int rand = Random.Range(0, 4);
+        int rand = Random.Range(0, 6);
+        if(rand == prevRand)
+        {
+            rand++;
+            rand %= 6;
+        }
         switch (rand)
         {
             case 0:
@@ -122,7 +127,22 @@ public class TileGen : MonoBehaviour
                 SharkLeftLane1(refPos);
                 SharkLeftLane3(refPos);
                 break;
+            case 4:
+                SharkLeftLane2(refPos);
+                if (prevRand < 4)
+                {
+                    SharkLeftLane3(refPos);
+                }
+                break;
+            case 5:
+                SharkLeftLane2(refPos);
+                if (prevRand < 4)
+                {
+                    SharkLeftLane3(refPos);
+                }
+                break;
         }
+        prevRand = rand;
     }
 
     private void SharkLeftLane1(Vector2Int refPos)
@@ -271,6 +291,11 @@ public class TileGen : MonoBehaviour
     {
         //OBSTACLE GENERATION FOR RIGHT STRAIGHT (AFTER RIGHT TURNS)
         int rand = Random.Range(0, 6);
+        if (rand == prevRand)
+        {
+            rand++;
+            rand %= 6;
+        }
 
         switch (rand)
         {
@@ -284,18 +309,25 @@ public class TileGen : MonoBehaviour
                 SharkRightLane3(refPos);
                 break;
             case 3:
-                SharkRightLane1(refPos);
                 SharkRightLane3(refPos);
+                SharkRightLane1(refPos);
                 break;
             case 4:
-                SharkRightLane1(refPos);
+                if (prevRand < 4)
+                {
+                    SharkRightLane1(refPos);
+                }
                 SharkRightLane2(refPos);
                 break;
             case 5:
+                if (prevRand < 4)
+                {
+                    SharkRightLane3(refPos);
+                }
                 SharkRightLane2(refPos);
-                SharkRightLane3(refPos);
                 break;
         }
+        prevRand = rand;
     }
 
     public void SharkRightLane1(Vector2Int refPos)
