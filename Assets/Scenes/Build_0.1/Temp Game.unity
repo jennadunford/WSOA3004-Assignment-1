@@ -1704,8 +1704,8 @@ MonoBehaviour:
   losePanel: {fileID: 560091144}
   loseMsg: {fileID: 364100481}
   scoreTxt: {fileID: 1289778702}
-  ScoreText: {fileID: 1753072323}
-  secPerInc: 4
+  ingameScore: {fileID: 1753072323}
+  secPerInc: 1
 --- !u!1 &1449807057
 GameObject:
   m_ObjectHideFlags: 0

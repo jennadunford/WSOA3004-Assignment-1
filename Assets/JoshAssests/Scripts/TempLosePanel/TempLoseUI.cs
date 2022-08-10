@@ -10,7 +10,7 @@ public class TempLoseUI : MonoBehaviour
     [SerializeField] Text loseMsg;
     [SerializeField] Text scoreTxt;
 
-    [SerializeField] Text ScoreText;
+    [SerializeField] Text ingameScore;
 
     const string scoreMsg = "Score: ";
 
@@ -35,7 +35,7 @@ public class TempLoseUI : MonoBehaviour
             }
         }
 
-        scoreTxt.text = scoreMsg + Score.ToString("0");
+        ingameScore.text = scoreMsg + Score.ToString("0");
     }
 
     // Events called by event manager
