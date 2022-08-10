@@ -7,8 +7,6 @@ public class GameEvents : MonoBehaviour
     public UnityEvent GameStart;
     public UnityEvent<string> GameEnd;
 
-   
-
     [TextArea] public string outOfBoundsMsg;
     [TextArea] public string sharkMsg;
 

@@ -10,6 +10,10 @@ public class TempLoseUI : MonoBehaviour
     [SerializeField] Text loseMsg;
     [SerializeField] Text scoreTxt;
 
+    [SerializeField] Text ScoreText;
+
+    const string scoreMsg = "Score: ";
+
 
     [SerializeField] float secPerInc;
     float incCount = 0f;
@@ -30,6 +34,8 @@ public class TempLoseUI : MonoBehaviour
                 Score++;
             }
         }
+
+        scoreTxt.text = scoreMsg + Score.ToString("0");
     }
 
     // Events called by event manager
@@ -41,7 +47,7 @@ public class TempLoseUI : MonoBehaviour
     public void Lose(string msg)
     {
         loseMsg.text = msg;
-        scoreTxt.text = "Score: " + Score.ToString("0");
+        scoreTxt.text = scoreMsg + Score.ToString("0");
         losePanel.SetActive(true);
     }
 
@@ -55,5 +61,10 @@ public class TempLoseUI : MonoBehaviour
     public void Quit()
     {
         Application.Quit();
+    }
+
+    public void BackToMenu()
+    {
+        SceneManager.LoadScene(0);
     }
 }
