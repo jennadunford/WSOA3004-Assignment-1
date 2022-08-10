@@ -11,8 +11,12 @@ public class TempLoseUI : MonoBehaviour
     [SerializeField] Text scoreTxt;
 
     [SerializeField] Text ingameScore;
+    [SerializeField] Text ingameHighScore;
 
     const string scoreMsg = "Score: ";
+    const string highScoreMsg = "High: ";
+
+    const string scoreSave = "score";
 
 
     [SerializeField] float secPerInc;
@@ -22,6 +26,7 @@ public class TempLoseUI : MonoBehaviour
     private void Start()
     {
         losePanel.SetActive(false);
+        ingameHighScore.text = highScoreMsg + GetHighScore();
     }
     void Update()
     {
@@ -46,6 +51,9 @@ public class TempLoseUI : MonoBehaviour
 
     public void Lose(string msg)
     {
+        running = false;
+
+        SetHighSocre(Score);
         loseMsg.text = msg;
         scoreTxt.text = scoreMsg + Score.ToString("0");
         losePanel.SetActive(true);
@@ -66,5 +74,26 @@ public class TempLoseUI : MonoBehaviour
     public void BackToMenu()
     {
         SceneManager.LoadScene(0);
+    }
+
+
+    // High score managment
+    private float GetHighScore()
+    {
+        if (PlayerPrefs.HasKey(scoreSave))
+        {
+            return PlayerPrefs.GetFloat(scoreSave);
+        }
+        else
+        {
+            return 0f;
+        }
+    }
+    private void SetHighSocre(float score)
+    {
+        if(score > GetHighScore())
+        {
+            PlayerPrefs.SetFloat(scoreSave, score);
+        }
     }
 }
