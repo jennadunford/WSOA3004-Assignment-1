@@ -7,3 +7,11 @@
 - Jenna Dunford: Art, Programming, System Design, User Interface
 - Joshua Jandrell: Programming, System Design, User Interface
 - Musawenkosi Madlala: User Interface
+
+## External Assets Used
+### Mouse Memoirs Font Family
+- Designed by: Astigmatic
+- Found at: https://fonts.google.com/betterspecimen/Mouse+Memoirs?query=mouse+memoirs
+- License: Open Font License
+
+
