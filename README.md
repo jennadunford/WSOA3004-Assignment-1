@@ -17,4 +17,5 @@
 # Final Build Location
 - The Final Build for this project is located within the Final Build folder in the root of the repository.
 
-
+# Project Report Location 
+- The report for this assignment can be found in the Project Report Folder in the root of the repository
