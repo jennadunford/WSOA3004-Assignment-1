@@ -1,2 +1,9 @@
-# WSOA3004-Assignment-1
- Assignment 1 Project
+# WSOA3004 PROTOTYPE ASSIGNMENT 1
+
+## Untitled Turtle Game
+- For this project we decided to make a prototype of an isometric infinite runner game that makes use of procedural generation
+
+## Group Members and Roles
+- Jenna Dunford: Art, Programming, System Design, User Interface
+- Joshua Jandrell: Programming, System Design, User Interface
+- Musawenkosi Madlala: User Interface
