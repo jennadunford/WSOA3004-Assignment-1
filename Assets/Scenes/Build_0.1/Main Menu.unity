@@ -198,18 +198,16 @@ MonoBehaviour:
 
     movement
 
-    a or w = left
-
-    d = right
+    WASD or arrows
 
 
-    the game
+    Avoid sharks.
 
-    the
-    best frog can avoid sharks and have the longest journey across the river. the
-    journey is rough and the obstacles are surprising so the best frog is the smartest
-    not the fastest.
+    Do
+    not got off the path.
 
+
+    (You will turn automatically)
 
 '
 --- !u!222 &24670218
@@ -338,7 +336,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 8.5, y: -165}
+  m_AnchoredPosition: {x: 8.5, y: -113}
   m_SizeDelta: {x: 1097.79, y: 1100.84}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &155959161
@@ -363,10 +361,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: a00c29c8bda0a064b9144fd9177cd8e9, type: 3}
-    m_FontSize: 67
+    m_FontSize: 60
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 6
     m_MaxSize: 67
     m_Alignment: 1
     m_AlignByGeometry: 0
@@ -374,8 +372,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Name of game\n\nLevel design  by \n\n\nart design  by\n\nscript work 
-    by \n\nui design  by \n\nsound by\n\nTHANK YOU FOR PLAYING\n\n\n\n\n"
+  m_Text: "~~~ Turtle ~~~\n\n=== Art ===\nJenna Dunford\n\n=== Code === \nJennda
+    Dunford\nJoshua Jandrell\n\n=== UI ===\nMusa Madlala\nJoshua Jandrell\n\nTHANK
+    YOU FOR PLAYING\n\n\n\n\n"
 --- !u!222 &155959162
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -618,7 +617,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Name of Game
+  m_Text: 'Turle '
 --- !u!222 &372138253
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2029,7 +2028,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1704066654
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2066,7 +2065,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1747835862
 RectTransform:
   m_ObjectHideFlags: 0
