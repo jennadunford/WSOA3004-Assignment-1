@@ -1,4 +1,5 @@
-# WSOA3004 PROTOTYPE ASSIGNMENT 1
+# WSOA3004 PROTOTYPE ASSIGNMENT 1 [GROUP 12]
+
 
 ## Untitled Turtle Game
 - For this project we decided to make a prototype of an isometric infinite runner game that makes use of procedural generation
